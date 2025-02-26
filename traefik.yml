@@ -1,0 +1,19 @@
+api:
+  dashboard: true
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    exposedByDefault: false
+
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/etc/traefik/certs/stock.localhost.pem"
+        keyFile: "/etc/traefik/certs/stock.localhost-key.pem"

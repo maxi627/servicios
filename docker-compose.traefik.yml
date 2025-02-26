@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: always
+    command:
+      - "--api.insecure=true"  # Habilita la API de Traefik y permite acceso inseguro
+      - "--api.dashboard=true"  # Habilita el dashboard de Traefik
+      - "--entrypoints.web.address=:80"  # Entrada HTTP
+      - "--entrypoints.websecure.address=:443"  # Entrada HTTPS
+      - "--providers.docker=true"  # Habilita el proveedor de Docker para Traefik
+      - "--log.level=DEBUG"  # Cambia el nivel de logueo a DEBUG para más detalles
+    ports:
+      - "80:80"       # Puerto HTTP
+      - "443:443"     # Puerto HTTPS
+      - "8080:8080"   # Puerto para el dashboard de Traefik
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"  # Permitir acceso a Docker
+    networks:
+      - red1  # Conectar Traefik a la red de los microservicios
+
+networks:
+  red1:
+    external: true  # Asegura que la red 'red1' esté definida externamente
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Luego seguir probando con los certificados de mkcert   
+# services:
+#   traefik:
+#     image: traefik:v2.10
+#     container_name: traefik
+#     restart: always
+#     command:
+#       - "--configFile=/etc/traefik/traefik.yml"  # Especificar el archivo de configuración
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#       - "8080:8080"
+#     volumes:
+#       - "/var/run/docker.sock:/var/run/docker.sock"
+#       - "./certs:/etc/traefik/certs"
+#       - "./traefik.yml:/etc/traefik/traefik.yml"
+# networks:
+#   red1:
+#     external: true
