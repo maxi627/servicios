@@ -5,3 +5,7 @@ __pycache__/
 .git
 .venv
 .env
+
+# Certificados y claves locales (generar con mkcert, no versionar)
+certs/*.pem
+certs/acme.json

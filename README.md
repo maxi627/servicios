@@ -85,8 +85,15 @@ Si los hosts `*.localhost` no resuelven en tu sistema, agregalos al archivo `hos
 ### HTTPS con certificados locales (en progreso)
 
 - `traefik.yml` es una configuración alternativa que solo expone los servicios con `traefik.enable=true` (`exposedByDefault: false`) y usa un certificado por defecto para TLS.
-- En `certs/` está el `openssl-san.cnf` usado para generar el certificado de `stock.localhost` / `localhost`.
-- Al final de `docker-compose.traefik.yml` hay una versión comentada que monta `traefik.yml` y `certs/`. La idea es terminar de probarla con certificados generados con [mkcert](https://github.com/FiloSottile/mkcert).
+- Al final de `docker-compose.traefik.yml` hay una versión comentada que monta `traefik.yml` y `certs/`.
+- Los certificados y claves (`certs/*.pem`, `certs/acme.json`) **no se versionan**: cada uno los genera en su máquina con [mkcert](https://github.com/FiloSottile/mkcert):
+
+  ```bash
+  mkcert -install
+  mkcert -cert-file certs/stock.localhost.pem -key-file certs/stock.localhost-key.pem stock.localhost localhost
+  ```
+
+  También se pueden generar con OpenSSL usando `certs/openssl-san.cnf`.
 
 ## Redis
 
